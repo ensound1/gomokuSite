@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     const boardSize = 15;
     const gameBoard = document.getElementById('gameBoard');
     const winsElement = document.getElementById('wins');
@@ -11,11 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let gameActive = true; // Controls whether the game is active
     let gameStats = { wins: 0, total: 0 };
 
+    const storedStats = localStorage.getItem('gameStats');
+    if (storedStats) {
+        gameStats = JSON.parse(storedStats);
+        winsElement.textContent = gameStats.wins;
+        totalGamesElement.textContent = gameStats.total;
+    }
+
+
     resetButton.addEventListener('click', resetGame);
 
     function updateGameStats() {
         winsElement.textContent = gameStats.wins;
         totalGamesElement.textContent = gameStats.total;
+        // Salva le statistiche nel localStorage
+        localStorage.setItem('gameStats', JSON.stringify(gameStats));
     }
 
     function resetGame() {
