@@ -8,6 +8,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to start at the top */
+    padding: 20px; /* Adds some padding around the container */
+}
+
 #gameBoard {
     width: 750px;
     height: 750px;
@@ -28,12 +35,41 @@ body {
             background-color: #eee;
         }
 
-
         #gameBoard div.player {
-            background-color: black; /* Forces this style to take precedence */
+            background-color: black; /* Black for player 'X' */
         }
 
         #gameBoard div.ai {
-            background-color: red; /* Forces this style to take precedence */
+            background-color: red; /* Red for AI 'O' */
         }
 
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Padding around sidebar contents */
+    background: #e0e0e0; /* Light grey background for sidebar */
+    border-radius: 8px; /* Rounded corners for sidebar */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
+    margin-left: 20px; /* Space between game board and sidebar */
+}
+
+#gameStats {
+    margin-bottom: 20px; /* Space below the stats section */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #5c67f2; /* A nice blue for the button */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded corners for the button */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for the button */
+    transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+}
+
+    button:hover {
+        background-color: #4a50e0; /* Slightly darker blue on hover */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
+    }

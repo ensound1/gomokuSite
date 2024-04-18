@@ -1,8 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
     const boardSize = 15;
     const gameBoard = document.getElementById('gameBoard');
+    const winsElement = document.getElementById('wins');
+    const totalGamesElement = document.getElementById('totalGames');
+    const resetButton = document.getElementById('resetButton');
+
     let board = Array(boardSize).fill().map(() => Array(boardSize).fill(" "));
     let model = null;
+    let modelReady = false;
+    let gameActive = true; // Controls whether the game is active
+    let gameStats = { wins: 0, total: 0 };
+
+    resetButton.addEventListener('click', resetGame);
+
+    function updateGameStats() {
+        winsElement.textContent = gameStats.wins;
+        totalGamesElement.textContent = gameStats.total;
+    }
+
+    function resetGame() {
+        if (!modelReady) {
+            alert("The model is not yet ready. Please wait.");
+            return;
+        }
+        board = Array(boardSize).fill().map(() => Array(boardSize).fill(" "));
+        gameActive = true; // Reactivate the game
+        updateBoard();
+        updateGameStats();
+    }
 
     for (let i = 0; i < boardSize * boardSize; i++) {
         const cell = document.createElement('div');
@@ -11,28 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleCellClick(row, col) {
-        if (board[row][col] === " ") { // Ensure the cell is empty
-            board[row][col] = "X"; // Player 'X' makes a move
+        if (!modelReady || !gameActive) {
+            alert("The game is not active. Please reset the board.");
+            return;
+        }
+        if (board[row][col] === " ") {
+            board[row][col] = "X";
             updateBoard();
             if (checkWin(board, "X", row, col)) {
-                alert("Player X wins!"); // Alert if player 'X' wins
-                // Optional: Reset the board or implement additional game over logic here
-                return; // Stop further execution if there's a win
+                alert("Player X wins!");
+                gameStats.wins++;
+                gameStats.total++;
+                updateGameStats();
+                gameActive = false; // Deactivate the game
+                return;
             }
             makeAIMove();
         } else {
-            console.error("Cell is already taken!"); // Log error if cell is not empty
+            console.error("Cell is already taken!");
         }
     }
 
-
     function updateBoard() {
-        console.log('Updating visual board representation');
         for (let i = 0; i < 15; i++) {
             for (let j = 0; j < 15; j++) {
                 const cellIndex = i * 15 + j;
                 const cell = gameBoard.children[cellIndex];
-                cell.className = ''; // Reset classes
+                cell.className = '';
                 if (board[i][j] === "X") {
                     cell.classList.add('player');
                 } else if (board[i][j] === "O") {
@@ -42,18 +72,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
-
     async function loadModel() {
-        // Directly load the specific model named DISPREZZO
         const modelPath = `${location.origin}/Models/DISPREZZO/model.json`;
         try {
             model = await tf.loadLayersModel(modelPath);
             console.log('Model loaded successfully.');
-            model.summary(); // Optionally print model summary to the console if needed
+            modelReady = true;
         } catch (error) {
             console.error('Failed to load the model:', error);
             alert('Failed to load the model. Please check the console for more details.');
+            modelReady = false;
         }
     }
 
@@ -61,42 +89,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function checkWin(board, player, row, col) {
         const directions = [
-            { dr: 1, dc: 0 }, // vertical
-            { dr: 0, dc: 1 }, // horizontal
-            { dr: 1, dc: 1 }, // diagonal down-right
-            { dr: 1, dc: -1 } // diagonal down-left
+            { dr: 1, dc: 0 }, { dr: 0, dc: 1 }, { dr: 1, dc: 1 }, { dr: 1, dc: -1 }
         ];
-
         const inBounds = (r, c) => r >= 0 && r < 15 && c >= 0 && c < 15;
 
         for (let { dr, dc } of directions) {
-            let count = 1; // Start with the current piece
-
-            // Check in the positive direction
+            let count = 1;
             let [r, c] = [row + dr, col + dc];
             while (inBounds(r, c) && board[r][c] === player) {
                 count++;
                 r += dr;
                 c += dc;
             }
-
-            // Check in the negative direction
             [r, c] = [row - dr, col - dc];
             while (inBounds(r, c) && board[r][c] === player) {
                 count++;
                 r -= dr;
                 c -= dc;
             }
-
-            // Check if we have a line of 5
             if (count >= 5) {
                 return true; // Winning condition met
             }
         }
-
-        return false; // No win found
+        return false;
     }
-
 
     async function makeAIMove() {
         if (model) {
@@ -154,7 +170,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         updateBoard();
                         if (checkWin(board, "O", bestMove.i, bestMove.j)) {
                             alert("AI wins!"); // Alert if AI wins
-                            // Optional: Reset the board or implement additional game over logic here
+                            gameStats.total++;
+                            updateGameStats();
+                            gameActive = false; // Deactivate the game   
                         }
                     }
                 } catch (error) {
@@ -168,7 +186,5 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Model is not loaded, no AI moves can be made.");
         }
     }
-
-
 
 });

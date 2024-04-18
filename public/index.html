@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="gameBoard"></div>
+    <div id="gameContainer">
+        <div id="gameBoard"></div>
+        <div id="sidebar">
+            <div id="gameStats">
+                <h3>Game Stats</h3>
+                <p>Wins: <span id="wins">0</span>/<span id="totalGames">0</span></p>
+            </div>
+            <button id="resetButton">Reset Board</button>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script src="gomoku.js"></script>
 </body>
