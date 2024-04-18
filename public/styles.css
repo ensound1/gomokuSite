@@ -53,6 +53,25 @@ body {
     margin-left: 20px; /* Space between game board and sidebar */
 }
 
+@media (max-width: 800px) {
+    #gameContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #gameBoard {
+        width: 100vw; /* Si adatta alla larghezza del viewport */
+        height: 100vw; /* Altezza uguale alla larghezza per mantenere la proporzione */
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        margin-right: 0;
+    }
+
+    #sidebar {
+        width: 100%; /* Larghezza completa per la sidebar sotto la board */
+    }
+}
+
 #gameStats {
     margin-bottom: 20px; /* Space below the stats section */
 }
