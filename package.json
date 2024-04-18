@@ -1,0 +1,19 @@
+{
+  "name": "my-site",
+  "version": "0.0.0",
+  "description": "mySite",
+  "main": "server.js",
+  "author": "",
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  },
+  "eslintConfig": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
