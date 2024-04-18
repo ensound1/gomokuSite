@@ -92,3 +92,34 @@ button {
         background-color: #4a50e0; /* Slightly darker blue on hover */
         box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
     }
+
+#leaderboard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    margin-top: 20px; /* Spazio sopra la leaderboard */
+}
+
+    #leaderboard h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+#leaderboardList {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+    #leaderboardList li {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        #leaderboardList li:last-child {
+            border-bottom: none;
+        }

@@ -1,5 +1,32 @@
+function updateLeaderboard() {
+    fetch('/stats')  // Assumi che '/stats' sia la tua API per ottenere i dati della leaderboard
+        .then(response => response.json())
+        .then(data => {
+            const leaderboardList = document.getElementById('leaderboardList');
+            leaderboardList.innerHTML = ''; // Pulisci gli elementi precedenti
+
+            // Ordina i dati per numero di vittorie (decrescente)
+            data.sort((a, b) => b.wins - a.wins);
+
+            // Aggiungi ogni utente alla leaderboard
+            data.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = `${user.username}: ${user.wins} wins, ${user.totalGames} games`;
+                leaderboardList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Failed to load leaderboard data:', error));
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
+    let username = localStorage.getItem('username');
+    if (!username) {
+        username = prompt('Please enter your username:');
+        localStorage.setItem('username', username);
+    }
+
+    updateLeaderboard();
     const boardSize = 15;
     const gameBoard = document.getElementById('gameBoard');
     const winsElement = document.getElementById('wins');
@@ -55,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             board[row][col] = "X";
             updateBoard();
             if (checkWin(board, "X", row, col)) {
-                alert("Player X wins!");
+                alert("Player wins!");
                 gameStats.wins++;
                 gameStats.total++;
                 updateGameStats();
@@ -119,11 +146,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 c -= dc;
             }
             if (count >= 5) {
+                endGame(player === "X"); // Assuming "X" is the player and win is true if player wins
                 return true; // Winning condition met
             }
         }
         return false;
     }
+
 
     async function makeAIMove() {
         if (model) {
@@ -197,5 +226,32 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Model is not loaded, no AI moves can be made.");
         }
     }
+
+    function endGame(win) {
+        const username = localStorage.getItem('username');
+        const data = {
+            username: username,
+            win: win
+        };
+
+        fetch('/updateStats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        // Optionally reset the game or redirect the user
+        resetGame();
+    }
+
 
 });
