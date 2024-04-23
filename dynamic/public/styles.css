@@ -1,0 +1,125 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+#gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to start at the top */
+    padding: 20px; /* Adds some padding around the container */
+}
+
+#gameBoard {
+    width: 750px;
+    height: 750px;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 1px;
+    background-color: black;
+}
+
+    #gameBoard div {
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        #gameBoard div:hover {
+            background-color: #eee;
+        }
+
+        #gameBoard div.player {
+            background-color: black; /* Black for player 'X' */
+        }
+
+        #gameBoard div.ai {
+            background-color: red; /* Red for AI 'O' */
+        }
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Padding around sidebar contents */
+    background: #e0e0e0; /* Light grey background for sidebar */
+    border-radius: 8px; /* Rounded corners for sidebar */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
+    margin-left: 20px; /* Space between game board and sidebar */
+}
+
+@media (max-width: 800px) {
+    #gameContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #gameBoard {
+        width: 100vw; /* Si adatta alla larghezza del viewport */
+        height: 100vw; /* Altezza uguale alla larghezza per mantenere la proporzione */
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        margin-right: 0;
+    }
+
+    #sidebar {
+        width: 100%; /* Larghezza completa per la sidebar sotto la board */
+    }
+}
+
+#gameStats {
+    margin-bottom: 20px; /* Space below the stats section */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #5c67f2; /* A nice blue for the button */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded corners for the button */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for the button */
+    transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+}
+
+    button:hover {
+        background-color: #4a50e0; /* Slightly darker blue on hover */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
+    }
+
+#leaderboard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    margin-top: 20px; /* Spazio sopra la leaderboard */
+}
+
+    #leaderboard h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+#leaderboardList {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+    #leaderboardList li {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        #leaderboardList li:last-child {
+            border-bottom: none;
+        }

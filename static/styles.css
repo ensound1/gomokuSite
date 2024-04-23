@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+#gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to start at the top */
+    padding: 20px; /* Adds some padding around the container */
+}
+
+#gameBoard {
+    width: 750px;
+    height: 750px;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 1px;
+    background-color: black;
+}
+
+    #gameBoard div {
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        #gameBoard div:hover {
+            background-color: #eee;
+        }
+
+        #gameBoard div.player {
+            background-color: black; /* Black for player 'X' */
+        }
+
+        #gameBoard div.ai {
+            background-color: red; /* Red for AI 'O' */
+        }
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Padding around sidebar contents */
+    background: #e0e0e0; /* Light grey background for sidebar */
+    border-radius: 8px; /* Rounded corners for sidebar */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
+    margin-left: 20px; /* Space between game board and sidebar */
+}
+
+@media (max-width: 800px) {
+    #gameContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #gameBoard {
+        width: 100vw; /* Adapts to the width of the viewport */
+        height: 100vw; /* Height equal to the width to maintain proportion */
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        margin-right: 0;
+    }
+
+    #sidebar {
+        width: 100%; /* Full width for the sidebar below the board */
+    }
+}
+
+#gameStats {
+    margin-bottom: 20px; /* Space below the stats section */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #5c67f2; /* A nice blue for the button */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded corners for the button */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for the button */
+    transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+}
+
+    button:hover {
+        background-color: #4a50e0; /* Slightly darker blue on hover */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
+    }

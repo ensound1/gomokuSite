@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomoku Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="gameBoard">
+            <script>
+                const gameBoard = document.getElementById('gameBoard');
+                let boardHTML = '';
+                for (let i = 0; i < 225; i++) {
+                    boardHTML += `<div class="cell" data-index="${i}"></div>`;
+                }
+                gameBoard.innerHTML = boardHTML;
+            </script>
+        </div>
+        <div id="sidebar">
+            <div id="gameStats">
+                <h3>Game Stats</h3>
+                <p>Wins: <span id="wins">0</span>/<span id="totalGames">0</span></p>
+            </div>
+            <button id="resetButton">Reset Board</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script type="module" src="main.js"></script> <!-- Corrected the entry script file reference -->
+</body>
+</html>
