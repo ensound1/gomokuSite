@@ -4,11 +4,11 @@ let model = null;
 let modelReady = false;
 
 export async function loadModel() {
-    const MODEL_URL = '../common/Models/DISPREZZO/model.json';
+    const MODEL_URL = 'Models/DISPREZZO/model.json';
     try {
         await tf.ready();
 
-        model = await tf.loadGraphModel(MODEL_URL);
+        model = await tf.loadLayersModel(MODEL_URL);
         console.log('Model loaded successfully.');
         modelReady = true;
 
