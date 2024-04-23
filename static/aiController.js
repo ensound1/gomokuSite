@@ -1,15 +1,17 @@
-import { checkWin} from './gameLogic.js';
 import { updateBoard } from './uiController.js';
 
 let model = null;
 let modelReady = false;
 
 export async function loadModel() {
-    const modelPath = '../common/Models/DISPREZZO/model.json';
+    const MODEL_URL = '../common/Models/DISPREZZO/model.json';
     try {
-        model = await tf.loadLayersModel(modelPath);
+        await tf.ready();
+
+        model = await tf.loadLayersModel(MODEL_URL);
         console.log('Model loaded successfully.');
         modelReady = true;
+
     } catch (error) {
         console.error('Failed to load the model:', error);
         alert('Failed to load the model. Please check the console for more details.');
