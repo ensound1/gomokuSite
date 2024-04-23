@@ -8,7 +8,7 @@ export async function loadModel() {
     try {
         await tf.ready();
 
-        model = await tf.loadLayersModel(MODEL_URL);
+        model = await tf.loadGraphModel(MODEL_URL);
         console.log('Model loaded successfully.');
         modelReady = true;
 
