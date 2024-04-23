@@ -3,26 +3,30 @@ import { updateUIStats } from './uiController.js';
 
 export let gameStats = { wins: 0, total: 0 };
 
+// Function to load data from localStorage
 export function loadData() {
     const statsString = localStorage.getItem('gameStats');
+
     if (!statsString) {
-        console.err("No game stats found in localStorage.");
-        return { wins: 0, total: 0 }; // Return default stats if not found
+        console.log("No game stats found in localStorage.");
+        gameStats = { wins: 0, total: 0 }; // Initialize gameStats if not found
+    } else {
+        try {
+            gameStats = JSON.parse(statsString);
+            console.log(gameStats);
+        } catch (error) {
+            console.log("Error parsing game stats from localStorage:", error);
+            gameStats = { wins: 0, total: 0 }; // Reset to default on error
+        }
     }
 
-    try {
-        const stats = JSON.parse(statsString);
-        updateUIStats(stats); // Update UI with loaded stats
-        return stats;
-    } catch (error) {
-        console.error("Error parsing game stats from localStorage:", error);
-        return { wins: 0, total: 0 }; // Return default stats in case of parsing error
-    }
+    updateUIStats(); // Update the UI in both cases
 }
 
 
-export function updateGameStats(stats) {
-    localStorage.setItem('gameStats', JSON.stringify(stats));
+
+export function updateGameStats() {
+    localStorage.setItem('gameStats', JSON.stringify(gameStats));
 }
 
 export function endGame(playerWon) {

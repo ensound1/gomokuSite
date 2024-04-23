@@ -15,7 +15,7 @@ export function setupUI() {
         });
     });
 
-    updateUIStats(gameStats);
+    updateUIStats();
 }
 
 export function updateBoard(board) {
@@ -32,9 +32,9 @@ export function updateBoard(board) {
     });
 }
 
-export function updateUIStats(stats) {
+export function updateUIStats() {
     const winsSpan = document.getElementById('wins');
     const totalSpan = document.getElementById('totalGames');
-    winsSpan.textContent = stats.wins || 0;
-    totalSpan.textContent = stats.total || 0;
+    winsSpan.textContent = gameStats.wins;
+    totalSpan.textContent = gameStats.total;
 }

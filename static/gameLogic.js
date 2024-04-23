@@ -27,8 +27,8 @@ export async function handleCellClick(row, col) {
     if (checkWin(board, "X", row, col)) {
         gameStats.total++;
         gameStats.wins++;
-        updateGameStats(gameStats);
-        updateUIStats(gameStats);
+        updateGameStats();
+        updateUIStats();
         gameActive = false;
         endGame(true);
     } else {
@@ -36,8 +36,8 @@ export async function handleCellClick(row, col) {
         updateBoard(board);
         if (checkWin(board, "O", aiRow, aiCol)) {
             gameStats.total++;
-            updateGameStats(gameStats);
-            updateUIStats(gameStats);
+            updateGameStats();
+            updateUIStats();
             gameActive = false;
             endGame(false);
         }
