@@ -4,6 +4,7 @@ import { makeAIMove } from './aiController.js';
 
 let board = Array(15).fill().map(() => Array(15).fill(" "));
 let gameActive = true;
+let AIthinking = false;
 
 export function initializeGame() {
     board = Array(15).fill().map(() => Array(15).fill(" "));
@@ -16,8 +17,7 @@ export function resetGame() {
 }
 
 export async function handleCellClick(row, col) {
-    if (!gameActive || board[row][col] !== " ") {
-        alert("Game not active or invalid cell!");
+    if (!gameActive || board[row][col] !== " " || AIthinking) {
         return;
     }
 
@@ -32,7 +32,9 @@ export async function handleCellClick(row, col) {
         gameActive = false;
         endGame(true);
     } else {
+        AIthinking = true;
         let [aiRow, aiCol] = await makeAIMove(board);
+        AIthinking = false;
         updateBoard(board);
         if (checkWin(board, "O", aiRow, aiCol)) {
             gameStats.total++;

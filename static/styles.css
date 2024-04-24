@@ -6,13 +6,14 @@ body {
     margin: 0;
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrolling on all devices */
 }
 
 #gameContainer {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items to start at the top */
-    padding: 20px; /* Adds some padding around the container */
+    align-items: flex-start;
+    padding: 20px;
 }
 
 #gameBoard {
@@ -36,44 +37,21 @@ body {
         }
 
         #gameBoard div.player {
-            background-color: black; /* Black for player 'X' */
+            background-color: black;
         }
 
         #gameBoard div.ai {
-            background-color: red; /* Red for AI 'O' */
+            background-color: red;
         }
 
 #sidebar {
     display: flex;
     flex-direction: column;
-    padding: 20px; /* Padding around sidebar contents */
-    background: #e0e0e0; /* Light grey background for sidebar */
-    border-radius: 8px; /* Rounded corners for sidebar */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
-    margin-left: 20px; /* Space between game board and sidebar */
-}
-
-@media (max-width: 800px) {
-    #gameContainer {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #gameBoard {
-        width: 100vw; /* Adapts to the width of the viewport */
-        height: 100vw; /* Height equal to the width to maintain proportion */
-        grid-template-columns: repeat(15, 1fr);
-        grid-template-rows: repeat(15, 1fr);
-        margin-right: 0;
-    }
-
-    #sidebar {
-        width: 100%; /* Full width for the sidebar below the board */
-    }
-}
-
-#gameStats {
-    margin-bottom: 20px; /* Space below the stats section */
+    padding: 20px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-left: 20px;
 }
 
 button {
@@ -84,7 +62,7 @@ button {
     color: white;
     border: none;
     border-radius: 4px; /* Rounded corners for the button */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for the button */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for depth */
     transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
 }
 
@@ -92,3 +70,26 @@ button {
         background-color: #4a50e0; /* Slightly darker blue on hover */
         box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
     }
+
+@media (max-width: 800px) {
+    #gameContainer {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 5px; /* Adds padding on the sides for mobile devices */
+    }
+
+    #gameBoard {
+        width: calc(100vw - 10px); /* Full width of the viewport minus padding */
+        height: calc(100vw - 10px); /* Maintain aspect ratio */
+    }
+
+    #sidebar {
+        width: 100%; /* Full width to fit below the game board */
+        margin-top: 20px; /* Add some space between the game board and sidebar */
+        margin-left: 0; /* Remove margin on the left */
+    }
+
+    #sidebar, #gameBoard {
+        order: 1; /* Ensure order if needed, adjust based on preference */
+    }
+}
